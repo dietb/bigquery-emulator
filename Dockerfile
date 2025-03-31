@@ -11,7 +11,7 @@ RUN go mod download
 
 RUN make emulator/build
 
-FROM debian:bullseye AS emulator
+FROM debian:bookworm AS emulator
 
 COPY --from=0 /work/bigquery-emulator /bin/bigquery-emulator
 
