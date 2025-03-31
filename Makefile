@@ -1,8 +1,13 @@
 VERSION ?= latest
 REVISION := $(shell git rev-parse --short HEAD)
 UNAME_OS := $(shell uname -s)
+ARCH_OS := $(shell uname -m)
 ifneq ($(UNAME_OS),Darwin)
-	STATIC_LINK_FLAG := -linkmode external -extldflags "-static"
+	ifeq ($(ARCH_OS),x86_64)
+		STATIC_LINK_FLAG := -linkmode external -extldflags "-static"
+	else
+		STATIC_LINK_FLAG := -linkmode auto
+	endif
 endif
 
 emulator/build:
